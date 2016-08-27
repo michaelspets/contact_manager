@@ -30,6 +30,8 @@ gem 'unicorn'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'capybara'
+
 group :production do
   gem 'pg'
   gem 'rails_12factor'
