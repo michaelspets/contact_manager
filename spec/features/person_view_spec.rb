@@ -1,12 +1,11 @@
 require 'rails_helper'
 
 describe 'the person view', type: :feature do
-
   let(:person) { Person.create(first_name: 'John', last_name: 'Doe') }
 
   before(:each) do
-    person.phone_numbers.create(number: "555-1234")
-    person.phone_numbers.create(number: "555-5678")
+    person.phone_numbers.create(number: '555-1234')
+    person.phone_numbers.create(number: '555-5678')
     visit person_path(person)
   end
 
@@ -46,4 +45,20 @@ describe 'the person view', type: :feature do
     expect(page).to_not have_content(old_number)
   end
 
+  ##########            Destroying Phone Numbers                ################
+
+  it 'has links to destroy phone numbers' do
+    person.phone_numbers.each do |phone|
+      expect(page).to have_link('destroy', href: phone_number_path(phone))
+    end
+  end
+
+  it 'deletes a phone number' do
+    first(:link, 'destroy').click
+    # phone = person.phone_numbers.first
+    # expect(page).to have_content(phone.number)
+    # page.click_button('destroy')
+    expect(current_path).to eq(person_path(person))
+    # expect(page).to_not have_content(phone.number)
+  end
 end
