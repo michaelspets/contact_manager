@@ -5,6 +5,7 @@ deploy:
   provider: heroku
   api_key:
     secure: UpRuun3DuLo+eDb+ymd9VGfT/SBqpvsmYa9oIVvCBvfKc8tATk+wOC8d66PpfTtKMYdeCEng38WyvBRX+szOUzcffYvlMI1Vwqe6joJBWUOQvdALRB00l3YnuhcddvGkGAK90JTZbi/X6zvC5xuBGJBuKXlK9izbE9IGlyXl9mx6jg2uZPLBxoH5fAhkyGJ7+BB97EehdDiYxq9UHGbX18p3ZGHvmy0/QnAUryeJ5jVgX6/flnOJnILcDNKXn5JVSDoZFotKe9qqg6W++J3ijvR40nucQ2I1dwMkp4eOxXywYE1RWyrNG6Z45Dl7Ccs05AOACqZJ7FC1iSMsokkllIYRK4v22sJkuTlPLhyMwmw5hashIClf1Gqmqzpqbqfuh5h+IQmzQkxB7YdzI+fWbNqcFTlkOMYRdvE0KLIe5Q+IVoyy7q/vg54yyaCvo5x1ywVgi6JwFowyfho4QUZhsrqLXNgN5jxV8g7gdp0ok/rb0DjzDACTUg5nMJ62rgySsqntX7mTpBLTxtL9MsY4Tz8XFb++xJp1J127eiG/9QzylDoo2Ce4ntcyU9+Ckmwf1fQ0KVoa4PCBOTzb5cYefugtCyg9eT011rcNESd1gYbU9yiPUr8rwAUlQ951uPzfdN55f9va0HkP9w1zEcR7MC2+KDDzFFI7mC64fYhhaUA=
+  run: "rake db:migrate"
   app: sheltered-cliffs-43428
   on:
     repo: michaelspets/contact_manager
