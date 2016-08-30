@@ -106,7 +106,7 @@ describe 'the person view', type: :feature do
     expect(page).to_not have_content(old_address)
   end
 
-  # ##########            Destroying Phone Numbers                ################
+  # ##########            Destroying Email Address               ################
 
   it 'has links to destroy phone numbers' do
     person.email_addresses.each do |email|
