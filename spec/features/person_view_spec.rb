@@ -6,8 +6,13 @@ describe 'the person view', type: :feature do
   before(:each) do
     person.phone_numbers.create(number: '555-1234')
     person.phone_numbers.create(number: '555-5678')
+    person.email_addresses.create(address: 'm2@hotmail.com')
+    person.email_addresses.create(address: 'm1@hotmail.com')
     visit person_path(person)
   end
+
+
+  ################             PHONE NUMBERS             ################
 
   it 'shows the phone numbers' do
     person.phone_numbers.each do |phone|
@@ -58,6 +63,65 @@ describe 'the person view', type: :feature do
     # phone = person.phone_numbers.first
     # expect(page).to have_content(phone.number)
     # page.click_button('destroy')
+    expect(current_path).to eq(person_path(person))
+    # expect(page).to_not have_content(phone.number)
+  end
+
+
+  ################           EMAIL ADDRESSES          ################
+
+  it 'shows the email addresses' do
+    person.email_addresses.each do |email|
+      expect(page).to have_selector('li', text: email.address)
+    end
+  end
+
+  it 'has a link to add a new email address' do
+    expect(page).to have_link('Add email address', href: new_email_address_path(person_id: person.id))
+  end
+
+  it 'adds a new email address' do
+    page.click_link('Add email address')
+    page.fill_in('Address', with: 'k@gmail.com')
+    page.click_button('Create Email address')
+    expect(current_path).to eq(person_path(person))
+    expect(page).to have_content('k@gmail.com')
+  end
+
+  it 'has links to edit email address' do
+    person.email_addresses.each do |email|
+      expect(page).to have_link('edit', href: edit_email_address_path(email))
+    end
+  end
+
+  it 'edits an email address' do
+    email = person.email_addresses.first
+    old_address = email.address
+
+    first('ul > li:nth-child(3)').click_link('edit')
+    page.fill_in('Address', with: 'avac@hotmail.com')
+    page.click_button('Update Email address')
+    expect(current_path).to eq(person_path(person))
+    expect(page).to have_content('avac@hotmail.com')
+    expect(page).to_not have_content(old_address)
+  end
+
+  # ##########            Destroying Phone Numbers                ################
+
+  it 'has links to destroy phone numbers' do
+    person.email_addresses.each do |email|
+      expect(page).to have_link('destroy', href: email_address_path(email))
+    end
+  end
+
+  it 'deletes a phone number' do
+    first(:link, 'destroy').click
+    email = person.email_addresses.first
+    expect(page).to have_content(email.address)
+    # page.click_button('destroy')
+    within('ul > li:nth-child(3)') do
+      click_on('destroy')
+    end
     expect(current_path).to eq(person_path(person))
     # expect(page).to_not have_content(phone.number)
   end
