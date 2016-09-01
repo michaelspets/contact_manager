@@ -24,11 +24,11 @@ RSpec.describe EmailAddressesController, type: :controller do
   # EmailAddress. As you add validations to EmailAddress, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    { address: "MyString", person_id: 1 }
+    { address: "MyString", contact_id: 1, contact_type: "Person" }
   }
 
   let(:invalid_attributes) {
-    { address: nil, person_id: nil }
+    { address: nil, contact_id: nil }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -70,7 +70,7 @@ RSpec.describe EmailAddressesController, type: :controller do
   describe "POST #create" do
     context "with valid params" do
       let(:alice) { Person.create(first_name: 'Alice', last_name: 'Smith') }
-      let(:valid_attributes) { {address: 'a@gmail.com', person_id: alice.id} }
+      let(:valid_attributes) { {address: 'a@gmail.com', contact_id: alice.id, contact_type: "Person"} }
 
       it "creates a new EmailAddress" do
         expect {
@@ -107,15 +107,15 @@ RSpec.describe EmailAddressesController, type: :controller do
     context "with valid params" do
 
       let(:bob) { Person.create(first_name: 'Bob', last_name: 'Jones') }
-      let(:valid_attributes) { {address: 'bob4@k.gr', person_id: bob.id} }
-      let(:new_attributes) { {address: 'MyNewString', person_id: bob.id} }
+      let(:valid_attributes) { {address: 'bob4@k.gr', contact_id: bob.id, contact_type: "Person"} }
+      let(:new_attributes) { {address: 'MyNewString', contact_id: bob.id, contact_type: "Person"} }
 
       it "updates the requested email_address" do
         email_address = EmailAddress.create! valid_attributes
         put :update, {:id => email_address.to_param, :email_address => new_attributes}, valid_session
         email_address.reload
         expect(email_address.address).to eq('MyNewString')
-        expect(email_address.person_id).to eq(bob.id)
+        expect(email_address.contact_id).to eq(bob.id)
       end
 
       it "assigns the requested email_address as @email_address" do
@@ -148,7 +148,7 @@ RSpec.describe EmailAddressesController, type: :controller do
 
   describe "DELETE #destroy" do
     let(:mike) { Person.create(first_name: 'Mike', last_name: 'Brown') }
-    let(:valid_attributes) { {address: 'mmm@j.com', person_id: mike.id} }
+    let(:valid_attributes) { {address: 'mmm@j.com', contact_id: mike.id, contact_type: "Person"} }
 
     it "destroys the requested email_address" do
       email_address = EmailAddress.create! valid_attributes

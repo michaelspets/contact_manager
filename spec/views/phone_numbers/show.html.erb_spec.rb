@@ -4,13 +4,15 @@ RSpec.describe "phone_numbers/show", type: :view do
   before(:each) do
     @phone_number = assign(:phone_number, PhoneNumber.create!(
       :number => "Number",
-      :person => nil
+      :contact_id => 1,
+      :contact_type => "Person"
     ))
   end
 
   it "renders attributes in <p>" do
     render
     expect(rendered).to match(/Number/)
-    expect(rendered).to match(//)
+    expect(rendered).to match(/1/)
+    expect(rendered).to match(/Person/)
   end
 end

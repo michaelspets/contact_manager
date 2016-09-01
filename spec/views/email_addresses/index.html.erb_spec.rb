@@ -5,11 +5,13 @@ RSpec.describe "email_addresses/index", type: :view do
     assign(:email_addresses, [
       EmailAddress.create!(
         :address => "Address",
-        :person => nil
+        :contact_id => 1,
+        :contact_type => "Person"
       ),
       EmailAddress.create!(
         :address => "Address",
-        :person => nil
+        :contact_id => 1,
+        :contact_type => "Person"
       )
     ])
   end
@@ -17,6 +19,7 @@ RSpec.describe "email_addresses/index", type: :view do
   it "renders a list of email_addresses" do
     render
     assert_select "tr>td", :text => "Address".to_s, :count => 2
-    assert_select "tr>td", :text => nil.to_s, :count => 2
+    assert_select "tr>td", :text => 1.to_s, :count => 2
+    assert_select "tr>td", :text => "Person".to_s, :count => 2
   end
 end
